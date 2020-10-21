@@ -8,8 +8,8 @@ k_handle = ctypes.WinDLL("Kernel32.dll") #Error handle
 # Windows doc https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messageboxa
 
 hWnd = None
-lpText = "Hello World"
-lpCaption = "Hello students"
+lpText = u"Hello World"
+lpCaption = u"Hello students" # Notice the u before the string to send as unicode
 uType = 0x00000001 # The message box contains two push buttons OK and cancel
 
 response = user_handle.MessageBoxW(hWnd, lpText, lpCaption, uType)
@@ -23,6 +23,10 @@ if error !=0:
 
 if response ==1:
     print("User clicked OK!")
+elif response ==2:
+    prinf("User clicked cancel")
+    
+    
     
 
 
