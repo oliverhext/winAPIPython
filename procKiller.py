@@ -1,5 +1,7 @@
 
 # Function Library : https://docs.python.org/3/library/ctypes.html
+
+# ctypes
 # https://github.com/python/cpython/blob/master/Lib/ctypes/wintypes.py
 import ctypes
 # FindWindowA
@@ -18,6 +20,8 @@ import ctypes
 # );
 # https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-findwindowa
 
+# Set the handles that are used by the functios above
+
 k_handle = ctypes.WinDLL("Kernel32.dll")
 u_handle = ctypes.WinDLL("User32.dll")
 
@@ -32,8 +36,10 @@ PROCESS_ALL_ACCESS = (0x000F0000 | 0x00100000 | 0xFFF)
 lpWindowName = ctypes.c_char_p(input("Enter Window Name to Kill:").encode('utf-8'))
 print(lpWindowName)
 
-# Grap the findWindow handle that gets returned
+# Grap the findWindow handle that gets returned.  The return is the handle to the to the window
 hWnd = u_handle.FindWindowA(None, lpWindowName)
+
+print("The handle id is:",hWnd)
 
 if hWnd == 0:
     print("Error Code: {0} - Could not grab handle".format(k_handle.GetLastError()))
@@ -53,7 +59,12 @@ else:
 
 lpdwProcessId = ctypes.c_ulong()
 
+print("The lpdwProcessId is:", lpdwProcessId)
+
+
 response = u_handle.GetWindowThreadProcessId(hWnd, ctypes.byref(lpdwProcessId))
+
+print("The PID is"
 
 if response == 0:
     print("Error Code: {0} - Could not grab PID".format(k_handle.GetLastError()))
