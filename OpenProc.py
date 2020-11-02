@@ -3,6 +3,7 @@ import ctypes
 
 k_handle = ctypes.WinDLL("Kernel32.dll")
 
+# https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess
 # Win API Call
 # HANDLE OpenProcess(
 # DWORD dwDesiredAccess,
@@ -10,6 +11,7 @@ k_handle = ctypes.WinDLL("Kernel32.dll")
 # DWAORD dwProcessId
 # );
 
+# https://docs.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights
 # Access Rights
 PROCESS_ALL_ACCESS = (0x000F0000 | 0x00100000 | 0xFFF)
 
@@ -26,13 +28,13 @@ bInheritHandle = False
 
 #Manual input of process id
 
-dwProcessId = 0x364c #Use task manager to show the process to poke at.  Convert PID from dec to hex
+dwProcessId = 0xaac #Use task manager to show the process to poke at.  Convert PID from dec to hex
 print("The processID",dwProcessId)
 print("The variables type is:",type(dwProcessId))
 
 #Calling the Windows API Call
 response = k_handle.OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId)
-print(response)
+print("The response is:",response)
 
 #Checking for error
 error = k_handle.GetLastError()

@@ -2,15 +2,17 @@ import ctypes
 
 
 #Create a handle
-user_handle = ctypes.WinDLL("User32.dll")
+user_handle = ctypes.WinDLL("User32.dll")#Message box uses User32.dll
 k_handle = ctypes.WinDLL("Kernel32.dll") #Error handle
 
+# Creates a simple message box
 # Windows doc https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messageboxa
+#Message box function
 
 hWnd = None
 lpText = u"Hello World"
 lpCaption = u"Hello students" # Notice the u before the string to send as unicode
-uType = 0x00000001 # The message box contains two push buttons OK and cancel
+uType = 0x00000001 # The message box contains two push buttons OK and cancel. See webpage above for other options
 
 response = user_handle.MessageBoxW(hWnd, lpText, lpCaption, uType)
 

@@ -64,7 +64,7 @@ print("The lpdwProcessId is:", lpdwProcessId)
 
 response = u_handle.GetWindowThreadProcessId(hWnd, ctypes.byref(lpdwProcessId))
 
-print("The PID is"
+print("The PID is",response)
 
 if response == 0:
     print("Error Code: {0} - Could not grab PID".format(k_handle.GetLastError()))
@@ -87,14 +87,6 @@ dwDesiredAccess = PROCESS_ALL_ACCESS
 bInheritHandle = False
 dwProcessId = lpdwProcessId
 
-# TerminateProcess
-
-# BOOL TerminateProcess(
-# HANDLE hProcess,
-# UINT   uExitCode
-# );
-
-
 hProcess = k_handle.OpenProcess(dwDesiredAccess, bInheritHandle, dwProcessId)
 
 if hProcess <= 0:
@@ -103,6 +95,12 @@ else:
     print("Got our Handle...")
     
 # Terminate the process assuming we have persmission to do so.  Run as administrator to test
+# TerminateProcess
+
+# BOOL TerminateProcess(
+# HANDLE hProcess,
+# UINT   uExitCode
+# );
 
 uExitCode = 0x1
 response = k_handle.TerminateProcess(hProcess, uExitCode)
